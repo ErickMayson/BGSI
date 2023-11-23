@@ -1,0 +1,10 @@
+{
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.pythonPath": "${workspaceFolder}/venv/bin/python",  // Adjust the path to your virtual environment
+    "python.linting.pylintArgs": ["--generated-members=__init__"],
+    "python.linting.pylintUseMinimalCheckers": false,
+    "python.venvPath": "${workspaceFolder}/venv",
+    "files.exclude": {
+        "**/__pycache__": true
+    }
+}
