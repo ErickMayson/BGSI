@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import os
+import pygame
 
 def app():
     script_path = os.path.join(os.path.dirname(__file__), "interface.py")
