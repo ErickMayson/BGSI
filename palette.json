@@ -3,8 +3,9 @@
     "Main": "#212A3E",
     "Secondary": "#394867",
     "Tertiary": "#9BA4B5",
-    "Font":"Helvetica",
-    "FontColor":"#F1F6F9"
+    "boldFont":["Helvetica", 18, "bold"],
+    "normalFont": ["Helvetica", 12, "bold"],
+    "fontColor":"#F1F6F9"
     }
 
 }
