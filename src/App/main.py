@@ -12,14 +12,14 @@ pygame.display.set_caption(pygameWindow['caption'])
 
 entidadesCriadas = []
 
-from entidades.Entidade import Retangulo
+from Classes.Entidade import Retangulo
 
 retangulo1 = Retangulo((50, 50), (120, 200), 'retangulo1', 1, 1)
 entidadesCriadas.append(retangulo1)
 retangulo2 = Retangulo((100, 110), (154, 300), 'retangulo2', 1, 1)
 entidadesCriadas.append(retangulo2)
 
-from janelas.jGerenciadorObjetos import jGerenciadorObjetos
+from Windows.jGerenciadorObjetos import jGerenciadorObjetos
 
 #jGerenciadorObjetos()
 #print("Barata")
