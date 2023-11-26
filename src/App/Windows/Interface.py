@@ -1,11 +1,19 @@
 import tkinter as tk
 from tkinter import ttk
 import json
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+from App.Classes.Entidade import *
+#print(sys.path)
 
 class Interface:
     
-    def __init__(self, master):
+    def __init__(self, master, gerenciadorSINGLETON):
         
+        self.gerenciadorSINGLETON = gerenciadorSINGLETON
+
         with open("palette.json", "r") as json_file:
             stylingData = json.load(json_file)
             
@@ -124,15 +132,23 @@ class Interface:
             x2_coord = int(self.x2Entry.get())
             y2_coord = int(self.y2Entry.get())
             
+
             coordMin = (x1_coord, y1_coord)
             coordMax = (x2_coord, y2_coord)
+
             # Cria objeto
-            obj = CreateObject(object_name, objectType, (coordMin, coordMax))
+            objeto = Linha(coordMin, coordMax, object_name, 1, 1)
             # Adiciona o objeto para a lista.
-            self.object_manager.add_object(obj)
+            self.gerenciadorSINGLETON.addEntidade(objeto)
+            self.gerenciadorSINGLETON.draw()
+
+
+            #obj = CreateObject(object_name, objectType, (coordMin, coordMax))
+            # Adiciona o objeto para a lista.
+            #self.object_manager.add_object(obj)
             self.update_object_listbox()
             # Debug
-            print(f"Object Name: {object_name}, Object Type: {objectType}, Coordinates: {obj.coordinates}")
+            #print(f"Object Name: {object_name}, Object Type: {objectType}, Coordinates: {obj.coordinates}")
             
     def createTransformWindow(self):
         transformWindow = tk.Toplevel(self.master)
@@ -145,9 +161,9 @@ class Interface:
         titleLabel.pack(fill=tk.X)
 
 
-def main():
+def main(gerenciadorSINGLETON):
     root = tk.Tk()
-    app = Interface(root)
+    app = Interface(root, gerenciadorSINGLETON)
     root.mainloop()
     
 if __name__ == "__main__":
