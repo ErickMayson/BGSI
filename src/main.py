@@ -20,20 +20,24 @@ retangulo2 = Retangulo((100, 110), (154, 300), 'retangulo2', 1, 1)
 entidadesCriadas.append(retangulo2)
 
 from janelas.jGerenciadorObjetos import jGerenciadorObjetos
+from janelas.jPrincipal import jPrincipal
 
 #jGerenciadorObjetos()
 #print("Barata")
 #executar()
 #jGerenciadorObjetos()
 
-running = True
-while running:
-    for event in pygame.event.get():
-        if (event.type == pygame.QUIT):
-            running = False
-    for entidade in entidadesCriadas:
-        entidade.draw(janelaPygame)
-    #jGerenciadorObjetos()
+jPrincipal()
+
+
+# running = True
+# while running:
+#     for event in pygame.event.get():
+#         if (event.type == pygame.QUIT):
+#             running = False
+#     for entidade in entidadesCriadas:
+#         entidade.draw(janelaPygame)
+#     #jGerenciadorObjetos()
 
 pygame.quit()
 quit()
