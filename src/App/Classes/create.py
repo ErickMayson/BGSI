@@ -2,6 +2,8 @@ import pygame
 
 
 #Não consigo fazer isso aqui funcionar 😭😭😭(Com o Tkinter no caso)
+#Se possível, passar os nomes para CamelCase, comecei fazer com _ pra dar uma variada e achei uma porcaria
+
 class CreateObject:
     def __init__(self, object_name, object_type, coordinates):
         self.object_name = object_name

@@ -6,6 +6,7 @@ from Classes.create import CreateObject, ObjectManager
 
 
 #Mantenha o nome das variáveis em inglês.
+#Se possível, passar os nomes para CamelCase, comecei fazer com _ pra dar uma variada e achei uma porcaria
 
 class Interface:
     def __init__(self, master):
