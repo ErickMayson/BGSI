@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 import json
 import sys
 import os
@@ -71,7 +72,16 @@ class Interface:
         wCreateObject(self.master, self.gerenciadorSINGLETON, self.updateEntityList)
 
     def openTransformations(self):
+        #self.entityList.selection() -> Retorna uma tupla com o id do item selecionado
+        ident = self.entityList.selection()
+        if (ident == ()):
+            messagebox.showerror("Erro", "Selecione uma entidade.")
+            return
+        
         selectedEntityTreeNode = self.entityList.item(self.entityList.selection()[0])
+        #SelectEntityTreeNode -> retorna {"text": "", "image": "", "values": ["nome", "tipo"]}
+        #SelectEntityTreeNode['values'] -> ["nome", "tipo"]
+
         entityName = selectedEntityTreeNode['values'][0]
         wTransformations(self.master, entityName, self.gerenciadorSINGLETON, self.updateEntityList)
 

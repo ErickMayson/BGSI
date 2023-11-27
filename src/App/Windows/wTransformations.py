@@ -11,7 +11,7 @@ class wTransformations:
     def __init__(self, master, entityName = "",gerenciador = None, atualizarTreeView = None):
         #Configurações Iniciais
         mainWindow = Toplevel(master)
-        mainWindow.title("Transformar Objeto")
+        mainWindow.title(entityName)
         mainWindow.columnconfigure(0, weight=1)
         mainWindow.rowconfigure(0, weight=1)
 
@@ -37,7 +37,7 @@ class wTransformations:
         colorSquare.grid(row=0, column=1, pady=10, padx=50, sticky=(E, S))
         
         ttk.Button(colorFrame, text="Escolher cor", command= lambda: self.chooseColor(colorSquare)).grid(row=0, column=0, pady=10, padx=10, sticky=(S, W),)
-
+        mainWindow.focus_set()
         ttk.Button(colorFrame, text="Aplicar", command= self.applyColor).grid(row=1, column=1, pady=0, padx=40, sticky=(E, S), )
         
         notebook.add(colorFrame, text='Cor')
