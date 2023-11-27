@@ -37,7 +37,7 @@ class Interface:
         
         #Botao para janela de criacao
         #self.createObjectButton = tk.Button(master, text="Criar objeto", command=self.createObjectWindow, bg=self.fontColor, font=self.normalFont, width=10, height=5, bd=4, relief=tk.RAISED, padx=10, pady=5)
-        self.createObjectButton = tk.Button(master, text="Criar objeto", command=wCreateObject.__init__, bg=self.fontColor, font=self.normalFont, width=10, height=5, bd=4, relief=tk.RAISED, padx=10, pady=5)
+        self.createObjectButton = tk.Button(master, text="Criar objeto", command= lambda: wCreateObject(self.master, self.gerenciadorSINGLETON), bg=self.fontColor, font=self.normalFont, width=10, height=5, bd=4, relief=tk.RAISED, padx=10, pady=5)
         self.createObjectButton.pack(pady=10, side=tk.LEFT, padx=10)
         
         #Botao para janela de transformacao
@@ -125,11 +125,7 @@ class Interface:
     #         submitButton = tk.Button(paramsWindow, text="Draw", command=self.submitParameters, bg=self.fontColor, font=self.normalFont, relief=tk.RAISED, padx=10, pady=5)
     #         submitButton.grid(row=4, column=0, columnspan=2, pady=5)
         
-<<<<<<< HEAD
     
-=======
-        
->>>>>>> cd9032a30a1d9311e5f442c2de44e85fef541695
     # def submitParameters(self):
     #     objectType = self.types.get()
     #     object_name = self.nameEntry.get()

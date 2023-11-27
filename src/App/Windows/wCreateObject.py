@@ -34,9 +34,9 @@ class wCreateObject:
         # Menu dropdown para types de objetos.
         typeLabel = ttk.Label(mainframe, text="Tipo de objeto")
         typeLabel.grid(row=1, column=0, pady=10)
-        types = ["Reta", "Quadrado", "Triangulo", "Circulo"]
+        types = ["None", "Reta", "Retangulo", "Triangulo", "Circulo"]
         self.selectedType = StringVar(mainframe)
-        self.selectedType.set(types[0])  # Set the default value
+        #self.selectedType.set(types[0])  # Set the default value
 
         self.mainframe = mainframe
         self.mainWindow = mainWindow
@@ -50,9 +50,21 @@ class wCreateObject:
         self.parametersFrame.grid_forget()
 
         # Cada if spawnará um frame de parametros diferente, dependendo do tipo de objeto selecionado
-        if self.selectedType.get() == "Reta":
-            print("Ainda não implementado")
-        if self.selectedType.get() == "Quadrado":
+        # if self.selectedType.get() == "Reta":
+        #     # IGUALZINHO AO QUADRADO
+        #     input = ("Coordenada X Min", "Coordenada Y Min", "Coordenada X Max", "Coordenada Y Max")
+        #     variables = [IntVar() for _ in range(4)]
+
+        #     for i in range(2):
+        #         ttk.Label(self.parametersFrame, text = input[i*2]).grid(column = 0, row = i*2, sticky = (W, E))
+        #         ttk.Spinbox(self.parametersFrame, to = 100, width = 5, textvariable= variables[i*2]).grid(column = 1, row =  i*2, sticky = (W, E))
+        #         ttk.Label(self.parametersFrame, text = input[i*2+1]).grid(column = 0, row =  i*2 + 1, sticky = (W, E))
+        #         ttk.Spinbox(self.parametersFrame, to = 100, width = 5, textvariable= variables[i*2+1]).grid(column = 1, row = i*2 + 1, sticky = (W, E))
+            
+        #     ttk.Button(self.parametersFrame,text="Criar", command= lambda: self.submitParameters(variables)).grid(column=1, row=4)
+        #     self.parametersFrame.grid()
+
+        if self.selectedType.get() == "Retangulo" or self.selectedType.get() == "Reta":
             # Define uma lista de strings que serão usadas como rótulos para os campos de entrada
             input = ("Coordenada X Min", "Coordenada Y Min", "Coordenada X Max", "Coordenada Y Max")
             # Cria uma lista de variáveis IntVar, que serão usadas para armazenar os valores dos campos de entrada
@@ -81,7 +93,7 @@ class wCreateObject:
         objectType = self.selectedType.get()
         objectName = self.nameEntry.get()
 
-        if objectType == "Quadrado":
+        if objectType == "Retangulo" or objectType == "Reta":
             print(parameters[0].get(), parameters[1].get())
             x1Coord = int(parameters[0].get())
             y1Coord = int(parameters[1].get())
@@ -93,7 +105,12 @@ class wCreateObject:
             coordMax = (x2Coord, y2Coord)
 
             # Cria objeto
-            objeto = Linha(coordMin, coordMax, objectName, 1, 1)
+
+            if objectType == "Retangulo":
+                objeto = Retangulo(coordMin, coordMax, objectName, 1, 1)
+            else:
+                objeto = Linha(coordMin, coordMax, objectName, 1, 1)
+
             # Adiciona o objeto para a lista.
             self.gerenciadorSINGLETON.addEntidade(objeto)
             self.gerenciadorSINGLETON.draw()
@@ -101,5 +118,5 @@ class wCreateObject:
             self.update_object_listbox()
 
 
-
+# Não esqueça de comentar a linha de baixo, descomente para testar a janela de forma mais rápida
 #wCreateObject(Tk())
