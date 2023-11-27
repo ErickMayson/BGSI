@@ -47,7 +47,19 @@ class wTransformations:
         translationFrame.grid(column=0, row=0, sticky=(N, W, E, S))
 
         notebook.add(translationFrame, text='Translação')
+        
+        inputLabelX = ttk.Label(translationFrame, text="X")
+        inputLabelX.grid(row=0, column=0, pady=5, padx=5)
+        inputLabelY = ttk.Label(translationFrame, text="Y")
+        inputLabelY.grid(row=1, column=0, pady=5, padx=5)
 
+        self.xEntry = ttk.Entry(translationFrame)
+        self.xEntry.grid(row=0, column=1, pady=5, padx=5)
+        self.yEntry = ttk.Entry(translationFrame)
+        self.yEntry.grid(row=1, column=1, pady=5, padx=5)
+        
+        ttk.Button(translationFrame, text="Mover objeto", command=self.moveObject).grid(row=3, column=1, pady=10, padx=10, sticky=(S, W),)
+        mainWindow.focus_set()
 
 
         mainWindow.mainloop()
@@ -68,4 +80,20 @@ class wTransformations:
         self.color = colorchooser.askcolor()
         colorSquare.config(bg=self.color[1])
 
+    def moveObject(self):
+        translationX = self.xEntry.get()
+        translationY = self.yEntry.get()
+        
+        self.translationInput = (translationX, translationY)
+
+        entidade = self.gerenciadorSINGLETON.findEntidadeByName(self.entityName)
+        if entidade is not None:
+            entidade.translacao = self.translationInput
+            print(entidade.translacao)
+            # Not redrawing?
+            self.gerenciadorSINGLETON.draw()
+            
+        else:
+            messagebox.showerror("Erro", "Isso não devia acontecer, a entidade " + self.entityName + " não foi encontrada.")
+        
 #wTransformations(Tk())
