@@ -27,8 +27,9 @@ class Entidade:
 class Retangulo(Entidade):
     def __init__(self, cordsMin, cordsMax, nome, escala, rotacao = 0, translacao = (0,0), corBorda = (0,0,0), corPreenchimento = (255, 255, 255) ):
         super().__init__(nome, escala, translacao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255))
-        self.cordsMin = list(map(add, cordsMin, translacao)) * escala
-        self.cordsMax = list(map(add, cordsMax, translacao)) * escala
+        self.cordsMin = list(map(lambda x: x * escala, map(add, cordsMin, translacao)))
+        self.cordsMax = list(map(lambda x: x * escala, map(add, cordsMax, translacao)))
+
     
     def draw(self, surf):
         pygame.draw.rect(surf, self.corPreenchimento, (self.cordsMin, self.cordsMax))
@@ -37,9 +38,9 @@ class Retangulo(Entidade):
 class Linha(Entidade):
     def __init__(self, cordsMin, cordsMax, nome, escala, rotacao = 0, translacao = (0,0), corBorda = (0,0,0), corPreenchimento = (255, 255, 255) ):
         print("Construtor da classe Linha");
-        super().__init__(nome, escala, translacao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255))
-        self.cordsMin = list(map(add, cordsMin, translacao)) * escala
-        self.cordsMax = list(map(add, cordsMax, translacao)) * escala
+        super().__init__(nome, escala, posicao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255))
+        self.cordsMin = list(map(lambda x: x * escala, map(add, cordsMin, translacao)))
+        self.cordsMax = list(map(lambda x: x * escala, map(add, cordsMax, translacao)))
     
     def draw(self, surf):
         pygame.draw.line(surf, self.corPreenchimento, self.cordsMin, self.cordsMax)

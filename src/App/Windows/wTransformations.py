@@ -119,5 +119,8 @@ class wTransformations:
             
         else:
             messagebox.showerror("Erro", "Isso não devia acontecer, a entidade " + self.entityName + " não foi encontrada.")
+            
+    def rotateObject(self):
+        return print("Placeholder for Rotate function")
         
 #wTransformations(Tk())
