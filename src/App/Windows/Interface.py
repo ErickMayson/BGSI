@@ -123,32 +123,32 @@ class Interface:
             submitButton.grid(row=4, column=0, columnspan=2, pady=5)
         
         
-    def submitParameters(self):
-        objectType = self.types.get()
-        object_name = self.nameEntry.get()
-        if objectType == "Reta":
-            x1_coord = int(self.x1Entry.get())
-            y1_coord = int(self.y1Entry.get())
-            x2_coord = int(self.x2Entry.get())
-            y2_coord = int(self.y2Entry.get())
+    # def submitParameters(self):
+    #     objectType = self.types.get()
+    #     object_name = self.nameEntry.get()
+    #     if objectType == "Reta":
+    #         x1_coord = int(self.x1Entry.get())
+    #         y1_coord = int(self.y1Entry.get())
+    #         x2_coord = int(self.x2Entry.get())
+    #         y2_coord = int(self.y2Entry.get())
             
 
-            coordMin = (x1_coord, y1_coord)
-            coordMax = (x2_coord, y2_coord)
+    #         coordMin = (x1_coord, y1_coord)
+    #         coordMax = (x2_coord, y2_coord)
 
-            # Cria objeto
-            objeto = Linha(coordMin, coordMax, object_name, 1, 1)
-            # Adiciona o objeto para a lista.
-            self.gerenciadorSINGLETON.addEntidade(objeto)
-            self.gerenciadorSINGLETON.draw()
+    #         # Cria objeto
+    #         objeto = Linha(coordMin, coordMax, object_name, 1, 1)
+    #         # Adiciona o objeto para a lista.
+    #         self.gerenciadorSINGLETON.addEntidade(objeto)
+    #         self.gerenciadorSINGLETON.draw()
 
 
-            #obj = CreateObject(object_name, objectType, (coordMin, coordMax))
-            # Adiciona o objeto para a lista.
-            #self.object_manager.add_object(obj)
-            self.update_object_listbox()
-            # Debug
-            #print(f"Object Name: {object_name}, Object Type: {objectType}, Coordinates: {obj.coordinates}")
+    #         #obj = CreateObject(object_name, objectType, (coordMin, coordMax))
+    #         # Adiciona o objeto para a lista.
+    #         #self.object_manager.add_object(obj)
+    #         self.update_object_listbox()
+    #         # Debug
+    #         #print(f"Object Name: {object_name}, Object Type: {objectType}, Coordinates: {obj.coordinates}")
             
     def createTransformWindow(self):
         transformWindow = tk.Toplevel(self.master)
