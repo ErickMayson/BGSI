@@ -8,10 +8,20 @@ class GerenciadorObjetos:
         self.surface = surface
 
     def addEntidade(self, entidade):
-        self.entidadesCriadas.append(entidade)
+        if self.findEntidadeByName(entidade.nome) == None:
+            self.entidadesCriadas.append(entidade)
+        else:
+            raise Exception("Já existe uma entidade com esse nome!")
 
     def draw(self):
         for entidade in self.entidadesCriadas:
             entidade.draw(self.surface)
+
+    def findEntidadeByName(self, nome):
+        for entidade in self.entidadesCriadas:
+            if entidade.nome == nome:
+                return entidade
+        else:
+            raise Exception("Não existe uma entidade com esse nome!")
 
     
