@@ -48,6 +48,9 @@ class wTransformations:
 
         notebook.add(translationFrame, text='Translação')
 
+        ttk.Button(translationFrame, text="Mover objeto", command= lambda: self.escalaTest(translationInput)).grid(row=0, column=0, pady=10, padx=10, sticky=(S, W),)
+        mainWindow.focus_set()
+        #ttk.Button(colorFrame, text="Aplicar", command= self.applyColor).grid(row=1, column=1, pady=0, padx=40, sticky=(E, S), )
 
 
         mainWindow.mainloop()
@@ -68,4 +71,8 @@ class wTransformations:
         self.color = colorchooser.askcolor()
         colorSquare.config(bg=self.color[1])
 
+    def escalaTest(self, translationInput):
+        entidade = self.gerenciadorSINGLETON.findEntidadeByName(self.entityName)
+        print(self.escala)
+        
 #wTransformations(Tk())

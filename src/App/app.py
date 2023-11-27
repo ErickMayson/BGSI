@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     gerenciadorSINGLETON = GerenciadorObjetos(janelaPygame)
 
-    retangulo1 = Retangulo((50, 50), (120, 200), 'retangulo1', 1, 1)
+    retangulo1 = Retangulo((50, 50), (120, 200), 'retangulo1', 1, (0,0))
     GerenciadorObjetos.addEntidade(gerenciadorSINGLETON, retangulo1)
     #retangulo2 = Retangulo((100, 110), (154, 300), 'retangulo2', 1, 1)
     #gerenciadorSINGLETON.addEntidade(retangulo2)
