@@ -9,6 +9,8 @@ from App.Classes.Entidade import *
 from .wCreateObject import wCreateObject
 
 #print(sys.path)
+#Mantenha o nome das variáveis em inglês.
+#Se possível, passar os nomes para CamelCase, comecei fazer com _ pra dar uma variada e achei uma porcaria
 
 class Interface:
     
