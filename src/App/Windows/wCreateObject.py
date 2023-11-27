@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 import sys
 import os
 
@@ -81,7 +82,10 @@ class wCreateObject:
         objectType = self.selectedType.get()
         objectName = self.nameEntry.get()
 
-        if objectType == "Retangulo" or objectType == "Reta":
+        if objectName == "":
+            messagebox.showwarning("Erro", "O objeto precisa ter um nome!")
+        
+        elif objectType == "Retangulo" or objectType == "Reta":
             print(parameters[0].get(), parameters[1].get())
             x1Coord = int(parameters[0].get())
             y1Coord = int(parameters[1].get())
@@ -100,11 +104,14 @@ class wCreateObject:
                 objeto = Linha(coordMin, coordMax, objectName, 1, 1)
 
             # Adiciona o objeto para a lista.
-            self.gerenciadorSINGLETON.addEntidade(objeto)
-            self.gerenciadorSINGLETON.draw()
-            # Atualiza a TreeView da janela principal
-            self.atualizarTreeView(objeto)
-            #self.update_object_listbox()
+            try:
+                self.gerenciadorSINGLETON.addEntidade(objeto)
+                self.gerenciadorSINGLETON.draw()
+                # Atualiza a TreeView da janela principal
+                self.atualizarTreeView(objeto)
+                #self.update_object_listbox()
+            except Exception as e:
+                messagebox.showwarning("Erro", e)
 
 
 # Não esqueça de comentar a linha de baixo, descomente para testar a janela de forma mais rápida

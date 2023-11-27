@@ -44,9 +44,11 @@ class Interface:
         entityList.heading("tipo", text="Tipo")
         
         entityList.grid(row=1, column=1, columnspan=2, rowspan=1, sticky="ew", padx=5, pady=5)
+        
 
         #Isso não basta, nós temos que adicionar as entidades quando a criamos, e não no construtor.
         for entidade in self.gerenciadorSINGLETON.entidadesCriadas:
+            # Nó pai, insere na última posição, valores.
             entityList.insert("", tk.END, values=(entidade.nome, entidade.__class__.__name__))
         
         self.entityList = entityList
@@ -55,12 +57,10 @@ class Interface:
         #self.createObjectButton = tk.Button(master, text="Criar objeto", command=self.createObjectWindow, bg=self.fontColor, font=self.normalFont, width=10, height=5, bd=4, relief=tk.RAISED, padx=10, pady=5)
         self.createObjectButton = tk.Button(master, text="Novo objeto", command= self.open_wCreateObject, bg=self.fontColor, font=self.normalFont, width=8, height=1, bd=4, relief=tk.RAISED, padx=10, pady=5)
         self.createObjectButton.grid(row=2, column=1, pady=5, padx=5)
-        #self.createObjectButton.pack(pady=10, side=tk.LEFT, padx=10)
         
         #Botao para janela de transformacao
         self.createObjectButton = tk.Button(master, text="Transformação", command=self.createTransformWindow, bg=self.fontColor, font=self.normalFont, width=10, height=1, bd=4, relief=tk.RAISED, padx=10, pady=5)
         self.createObjectButton.grid(row=2, column=2, pady=5, padx=5)
-        #self.createObjectButton.pack(pady=10, side=tk.LEFT, padx=10)
         
     
     def updateEntityList(self, entity):
