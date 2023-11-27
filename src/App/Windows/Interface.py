@@ -125,7 +125,11 @@ class Interface:
     #         submitButton = tk.Button(paramsWindow, text="Draw", command=self.submitParameters, bg=self.fontColor, font=self.normalFont, relief=tk.RAISED, padx=10, pady=5)
     #         submitButton.grid(row=4, column=0, columnspan=2, pady=5)
         
+<<<<<<< HEAD
     
+=======
+        
+>>>>>>> cd9032a30a1d9311e5f442c2de44e85fef541695
     # def submitParameters(self):
     #     objectType = self.types.get()
     #     object_name = self.nameEntry.get()
