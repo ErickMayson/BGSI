@@ -60,7 +60,21 @@ class wTransformations:
         
         ttk.Button(translationFrame, text="Mover objeto", command=self.moveObject).grid(row=3, column=1, pady=10, padx=10, sticky=(S, W),)
         mainWindow.focus_set()
+        
+        # Frame de escalonamento
+        scalingFrame = ttk.Frame(notebook, padding = "2 2 2 2")
+        scalingFrame.grid(column=0, row=0, sticky=(N, W, E, S))
 
+        notebook.add(scalingFrame, text='Escalonamento')
+        
+        scalingLabel = ttk.Label(scalingFrame, text="X")
+        scalingLabel.grid(row=0, column=0, pady=5, padx=5)
+        
+        self.scalingInput = ttk.Entry(scalingFrame)
+        self.scalingInput.grid(row=0, column=1, pady=5, padx=5)
+        
+        ttk.Button(scalingFrame, text="Escalonar objeto", command=self.scaleObject).grid(row=3, column=1, pady=10, padx=10, sticky=(S, W),)
+        mainWindow.focus_set()
 
         mainWindow.mainloop()
 
@@ -90,6 +104,16 @@ class wTransformations:
         if entidade is not None:
             entidade.translacao = self.translationInput
             print(entidade.translacao)
+            # Not redrawing?
+            self.gerenciadorSINGLETON.draw()
+            
+    def scaleObject(self):
+        self.scalingFactor = self.scalingInput.get()
+
+        entidade = self.gerenciadorSINGLETON.findEntidadeByName(self.entityName)
+        if entidade is not None:
+            entidade.escala = self.scalingFactor
+            print(entidade.escala)
             # Not redrawing?
             self.gerenciadorSINGLETON.draw()
             
