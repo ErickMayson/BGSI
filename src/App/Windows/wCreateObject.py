@@ -14,6 +14,8 @@ class wCreateObject:
         #Configurações Iniciais
         mainWindow = Toplevel(master)
         mainWindow.title("Adicionar Objeto")
+        mainWindow.columnconfigure(0, weight=1)
+        mainWindow.rowconfigure(0, weight=1)
         self.gerenciadorSINGLETON = gerenciador
 
         # Função que atualiza a TreeView da janela principal
@@ -24,8 +26,13 @@ class wCreateObject:
         mainframe = ttk.Frame(mainWindow, padding = "2 2 2 2")
         mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 
+        # Cria só uma linha horizontal
+        ttk.Separator(mainframe, orient=HORIZONTAL).grid(row=2, columnspan=2, sticky=(W, E))
+
         # Cria o frame dos parametros
         parametersFrame = ttk.Frame(mainWindow, padding = "2 2 2 2")
+        parametersFrame.columnconfigure(0, weight=1)
+        parametersFrame.rowconfigure(0, weight=1)
         parametersFrame.grid(column=0, row=1, sticky=(N, W, E, S))
         self.parametersFrame = parametersFrame
         
@@ -53,6 +60,11 @@ class wCreateObject:
         # Remove o frame de parametros, caso ele exista. Isso é feito para que o frame se adapte ao tipo de objeto selecionado
         self.parametersFrame.grid_forget()
 
+        # Tamanho da borda
+        ttk.Label(self.parametersFrame, text="Tamanho da borda").grid(column=0, row=0, sticky=(W, E))
+
+        
+
         if self.selectedType.get() == "Retangulo" or self.selectedType.get() == "Reta":
             # Define uma lista de strings que serão usadas como rótulos para os campos de entrada
             input = ("Coordenada X Min", "Coordenada Y Min", "Coordenada X Max", "Coordenada Y Max")
@@ -68,8 +80,9 @@ class wCreateObject:
                 ttk.Label(self.parametersFrame, text = input[i*2+1]).grid(column = 0, row =  i*2 + 1, sticky = (W, E))
                 ttk.Spinbox(self.parametersFrame, to = 100, width = 5, textvariable= variables[i*2+1]).grid(column = 1, row = i*2 + 1, sticky = (W, E))
             
+            
             # Cria um botão que, quando pressionado, chama a função 'submitParameters' com a lista 'variables' como argumento
-            ttk.Button(self.parametersFrame,text="Criar", command= lambda: self.submitParameters(variables)).grid(column=1, row=4)
+            ttk.Button(self.parametersFrame,text="Criar", command= lambda: self.submitParameters(variables)).grid(column=1, row=4, sticky=(S, E))
             # Exibe o frame
             self.parametersFrame.grid()
             
@@ -115,4 +128,4 @@ class wCreateObject:
 
 
 # Não esqueça de comentar a linha de baixo, descomente para testar a janela de forma mais rápida
-#wCreateObject(Tk())
+wCreateObject(Tk())
