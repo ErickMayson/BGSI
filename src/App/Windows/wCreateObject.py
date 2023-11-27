@@ -8,12 +8,15 @@ from App.Classes.Entidade import *
 
 class wCreateObject:
     
-    def __init__(self, master, gerenciador = None):
+    def __init__(self, master, gerenciador = None, atualizarTreeView = None):
 
         #Configurações Iniciais
         mainWindow = Toplevel(master)
         mainWindow.title("Adicionar Objeto")
         self.gerenciadorSINGLETON = gerenciador
+
+        # Função que atualiza a TreeView da janela principal
+        self.atualizarTreeView = atualizarTreeView
         #mainWindow.geometry("200x200")
 
         # Criar frame principal
@@ -48,21 +51,6 @@ class wCreateObject:
     def showParameters(self, *args):
         # Remove o frame de parametros, caso ele exista. Isso é feito para que o frame se adapte ao tipo de objeto selecionado
         self.parametersFrame.grid_forget()
-
-        # Cada if spawnará um frame de parametros diferente, dependendo do tipo de objeto selecionado
-        # if self.selectedType.get() == "Reta":
-        #     # IGUALZINHO AO QUADRADO
-        #     input = ("Coordenada X Min", "Coordenada Y Min", "Coordenada X Max", "Coordenada Y Max")
-        #     variables = [IntVar() for _ in range(4)]
-
-        #     for i in range(2):
-        #         ttk.Label(self.parametersFrame, text = input[i*2]).grid(column = 0, row = i*2, sticky = (W, E))
-        #         ttk.Spinbox(self.parametersFrame, to = 100, width = 5, textvariable= variables[i*2]).grid(column = 1, row =  i*2, sticky = (W, E))
-        #         ttk.Label(self.parametersFrame, text = input[i*2+1]).grid(column = 0, row =  i*2 + 1, sticky = (W, E))
-        #         ttk.Spinbox(self.parametersFrame, to = 100, width = 5, textvariable= variables[i*2+1]).grid(column = 1, row = i*2 + 1, sticky = (W, E))
-            
-        #     ttk.Button(self.parametersFrame,text="Criar", command= lambda: self.submitParameters(variables)).grid(column=1, row=4)
-        #     self.parametersFrame.grid()
 
         if self.selectedType.get() == "Retangulo" or self.selectedType.get() == "Reta":
             # Define uma lista de strings que serão usadas como rótulos para os campos de entrada
@@ -114,8 +102,9 @@ class wCreateObject:
             # Adiciona o objeto para a lista.
             self.gerenciadorSINGLETON.addEntidade(objeto)
             self.gerenciadorSINGLETON.draw()
-
-            self.update_object_listbox()
+            # Atualiza a TreeView da janela principal
+            self.atualizarTreeView(objeto)
+            #self.update_object_listbox()
 
 
 # Não esqueça de comentar a linha de baixo, descomente para testar a janela de forma mais rápida

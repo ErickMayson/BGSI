@@ -27,53 +27,76 @@ class Interface:
         self.fontColor = stylingData["palette"]["fontColor"]
             
         self.master = master
-        self.master.title("Object Generator")
+        self.master.title("BGSI - Computação Gráfica")
         self.master.geometry("800x800")
         self.master.configure(bg=self.backgroundColor)
         
         #Titulo da pagina
-        titleLabel = tk.Label(self.master, text="Object Generator", font=self.boldFont, bg=self.secondaryColor, fg=self.fontColor)
-        titleLabel.pack(fill=tk.X)
+        titleLabel = tk.Label(self.master, text="BGSI - Computação Gráfica :]", font=self.boldFont, bg=self.secondaryColor, fg=self.fontColor)
+        titleLabel.grid(row=0, column=0, columnspan=4, sticky="ew")
+        #titleLabel.pack(fill=tk.X)
+
+        #Lista de Entidades
+        entityList = ttk.Treeview(self.master,columns=("nome", "tipo"), show="headings", height=10,)
+        entityList.heading("nome", text="Entidade")
+        entityList.heading("tipo", text="Tipo")
+        
+        entityList.grid(row=1, column=1, columnspan=2, rowspan=1, sticky="ew", padx=5, pady=5)
+
+        #Isso não basta, nós temos que adicionar as entidades quando a criamos, e não no construtor.
+        for entidade in self.gerenciadorSINGLETON.entidadesCriadas:
+            entityList.insert("", tk.END, values=(entidade.nome, entidade.__class__.__name__))
+        
+        self.entityList = entityList
         
         #Botao para janela de criacao
         #self.createObjectButton = tk.Button(master, text="Criar objeto", command=self.createObjectWindow, bg=self.fontColor, font=self.normalFont, width=10, height=5, bd=4, relief=tk.RAISED, padx=10, pady=5)
-        self.createObjectButton = tk.Button(master, text="Criar objeto", command= lambda: wCreateObject(self.master, self.gerenciadorSINGLETON), bg=self.fontColor, font=self.normalFont, width=10, height=5, bd=4, relief=tk.RAISED, padx=10, pady=5)
-        self.createObjectButton.pack(pady=10, side=tk.LEFT, padx=10)
+        self.createObjectButton = tk.Button(master, text="Novo objeto", command= self.open_wCreateObject, bg=self.fontColor, font=self.normalFont, width=8, height=1, bd=4, relief=tk.RAISED, padx=10, pady=5)
+        self.createObjectButton.grid(row=2, column=1, pady=5, padx=5)
+        #self.createObjectButton.pack(pady=10, side=tk.LEFT, padx=10)
         
         #Botao para janela de transformacao
-        self.createObjectButton = tk.Button(master, text="Transformação", command=self.createTransformWindow, bg=self.fontColor, font=self.normalFont, width=10, height=5, bd=4, relief=tk.RAISED, padx=10, pady=5)
-        self.createObjectButton.pack(pady=10, side=tk.LEFT, padx=10)
+        self.createObjectButton = tk.Button(master, text="Transformação", command=self.createTransformWindow, bg=self.fontColor, font=self.normalFont, width=10, height=1, bd=4, relief=tk.RAISED, padx=10, pady=5)
+        self.createObjectButton.grid(row=2, column=2, pady=5, padx=5)
+        #self.createObjectButton.pack(pady=10, side=tk.LEFT, padx=10)
         
-    def createObjectWindow(self):
-        objectWindow = tk.Toplevel(self.master)
-        objectWindow.title("Create Object")
-        objectWindow.geometry("300x300")
-        objectWindow.configure(bg=self.backgroundColor)
+    
+    def updateEntityList(self, entity):
+        self.entityList.insert("", tk.END, values=(entity.nome, entity.__class__.__name__))
+
+    def open_wCreateObject(self):
+        wCreateObject(self.master, self.gerenciadorSINGLETON, self.updateEntityList)
+
+    # def createObjectWindow(self):
+    #     objectWindow = tk.Toplevel(self.master)
+    #     objectWindow.title("Create Object")
+    #     objectWindow.geometry("300x300")
+    #     objectWindow.configure(bg=self.backgroundColor)
         
-        #Titulo da pagina
-        titleLabel = tk.Label(objectWindow, text="Object Creator", font=self.boldFont, bg=self.secondaryColor, fg=self.fontColor)
-        titleLabel.grid(row=0, column=0, columnspan=3, sticky="ew")
-        objectWindow.columnconfigure(0, weight=1) # Faz o title label ocupar toda linha 0
+    #     #Titulo da pagina
+    #     titleLabel = tk.Label(objectWindow, text="Object Creator", font=self.boldFont, bg=self.secondaryColor, fg=self.fontColor)
+    #     titleLabel.grid(row=0, column=0, columnspan=3, sticky="ew")
+    #     objectWindow.columnconfigure(0, weight=1) # Faz o title label ocupar toda linha 0
 
         
-        #Nomear o objeto
-        nameLabel = tk.Label(objectWindow, text="Object Name", bg=self.backgroundColor, fg= self.fontColor, font=self.normalFont)
-        nameLabel.grid(row=2, column=0, pady=5, padx=5)
-        self.nameEntry = tk.Entry(objectWindow)
-        self.nameEntry.grid(row=3, column=0, pady=5, padx=5)
+    #     #Nomear o objeto
+    #     nameLabel = tk.Label(objectWindow, text="Object Name", bg=self.backgroundColor, fg= self.fontColor, font=self.normalFont)
+    #     nameLabel.grid(row=2, column=0, pady=5, padx=5)
+    #     self.nameEntry = tk.Entry(objectWindow)
+    #     self.nameEntry.grid(row=3, column=0, pady=5, padx=5)
         
-        # Menu dropdown para types de objetos.
-        typeLabel = tk.Label(objectWindow, text="Tipo de objeto", bg=self.backgroundColor, fg= self.fontColor, font=self.normalFont)
-        typeLabel.grid(row=2, column=1, pady=5)
-        objectTypes = ["Reta", "Quadratico", "Triangulo", "Circulo"]
-        self.types = tk.StringVar(objectWindow)
-        self.types.set(objectTypes[0])  # Define o valor default
-        typeDropdown = tk.OptionMenu(objectWindow, self.types, *objectTypes) #Depois fazer a estilização
-        typeDropdown.grid(row=3, column=1, pady=5)
+    #     # Menu dropdown para types de objetos.
+    #     typeLabel = tk.Label(objectWindow, text="Tipo de objeto", bg=self.backgroundColor, fg= self.fontColor, font=self.normalFont)
+    #     typeLabel.grid(row=2, column=1, pady=5)
+    #     objectTypes = ["Reta", "Quadratico", "Triangulo", "Circulo"]
+    #     self.types = tk.StringVar(objectWindow)
+    #     self.types.set(objectTypes[0])  # Define o valor default
+    #     typeDropdown = tk.OptionMenu(objectWindow, self.types, *objectTypes) #Depois fazer a estilização
+    #     typeDropdown.grid(row=3, column=1, pady=5)
         
-        # Botao de parametros
-        self.paramsButton = tk.Button(objectWindow, text="Definir coordenadas", command=self.createParamsWindow, bg=self.fontColor, font=self.normalFont, relief=tk.RAISED, padx=10, pady=5)
-        self.paramsButton.grid(row=4, column=0, columnspan=2, pady=5)
+    #     # Botao de parametros
+    #     self.paramsButton = tk.Button(objectWindow, text="Definir coordenadas", command=self.createParamsWindow, bg=self.fontColor, font=self.normalFont, relief=tk.RAISED, padx=10, pady=5)
+    #     self.paramsButton.grid(row=4, column=0, columnspan=2, pady=5)
 
 
         
