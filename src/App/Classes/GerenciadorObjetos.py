@@ -22,6 +22,6 @@ class GerenciadorObjetos:
             if entidade.nome == nome:
                 return entidade
         else:
-            raise Exception("Não existe uma entidade com esse nome!")
+            return None
 
     
