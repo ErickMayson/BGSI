@@ -1,20 +1,13 @@
 import pygame
 from operator import add
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
-
-# #funcao para rotacionar o retângulo
-#         def rotacionarRet(tela, cor, x, y, largura, altura, angulo):
-#             ret_rotate = pygame.Surface((largura, altura), pygame.SRCALPHA)
-#             ret_rotate.fill((0, 0, 0, 0))
-#             pygame.draw.rect(ret_rotate, cor, (0, 0, largura, altura))
-
-#             rotacao = pygame.transform.rotate(ret_rotate, angulo)
-#             novo_retangulo = rotacao.get_rect(center = (x, y))
-#             tela.blit(rotacao, novo_retangulo.topleft)
-
+from App.app import *
 
 class Entidade:
-    def __init__(self, nome, escala, rotacao = 0 ,translacao = (0,0), corBorda = (0,0,0), corPreenchimento = (255, 255, 255)):
+    def __init__(self, nome, escala, rotacao, translacao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255)):
         self.corBorda = corBorda
         self.corPreenchimento = corPreenchimento
         self.nome = nome
@@ -25,23 +18,32 @@ class Entidade:
         
 
 class Retangulo(Entidade):
-    def __init__(self, cordsMin, cordsMax, nome, escala, rotacao = 0, translacao = (0,0), corBorda = (0,0,0), corPreenchimento = (255, 255, 255) ):
-        super().__init__(nome, escala, translacao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255))
-        self.cordsMin = list(map(lambda x: x * escala, map(add, cordsMin, translacao)))
-        self.cordsMax = list(map(lambda x: x * escala, map(add, cordsMax, translacao)))
+    def __init__(self, cordsMin, cordsMax, nome, escala, rotacao, translacao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255) ):
+        super().__init__(nome, escala, rotacao, translacao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255))
+        self.cordsMin = cordsMin
+        self.cordsMax = cordsMax
 
     
     def draw(self, surf):
+        
+        self.cordsMax = list(map(add, self.cordsMax, self.translacao))
+        self.cordsMin = list(map(add, self.cordsMin, self.translacao))
+        
+        janelaPygame.fill("black")
         pygame.draw.rect(surf, self.corPreenchimento, (self.cordsMin, self.cordsMax))
         pygame.display.flip()
 
 class Linha(Entidade):
     def __init__(self, cordsMin, cordsMax, nome, escala, rotacao = 0, translacao = (0,0), corBorda = (0,0,0), corPreenchimento = (255, 255, 255) ):
         print("Construtor da classe Linha");
-        super().__init__(nome, escala, posicao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255))
-        self.cordsMin = list(map(lambda x: x * escala, map(add, cordsMin, translacao)))
-        self.cordsMax = list(map(lambda x: x * escala, map(add, cordsMax, translacao)))
+        super().__init__(nome, escala, rotacao, translacao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255))
+        self.cordsMin = cordsMin
+        self.cordsMax = cordsMax
     
     def draw(self, surf):
+        self.cordsMax = list(map(add, self.cordsMax, self.translacao))
+        self.cordsMin = list(map(add, self.cordsMin, self.translacao))
+        
+        janelaPygame.fill("black")
         pygame.draw.line(surf, self.corPreenchimento, self.cordsMin, self.cordsMax)
         pygame.display.flip()

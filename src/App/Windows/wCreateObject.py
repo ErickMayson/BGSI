@@ -128,4 +128,4 @@ class wCreateObject:
 
 
 # Não esqueça de comentar a linha de baixo, descomente para testar a janela de forma mais rápida
-wCreateObject(Tk())
+#wCreateObject(Tk())

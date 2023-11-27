@@ -98,7 +98,7 @@ class wTransformations:
         translationX = self.xEntry.get()
         translationY = self.yEntry.get()
         
-        self.translationInput = (translationX, translationY)
+        self.translationInput = (int(translationX), int(translationY))
 
         entidade = self.gerenciadorSINGLETON.findEntidadeByName(self.entityName)
         if entidade is not None:
@@ -109,6 +109,7 @@ class wTransformations:
             
     def scaleObject(self):
         self.scalingFactor = self.scalingInput.get()
+        self.scalingFactor = int(self.scalingFactor)
 
         entidade = self.gerenciadorSINGLETON.findEntidadeByName(self.entityName)
         if entidade is not None:
