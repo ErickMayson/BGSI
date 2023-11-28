@@ -20,6 +20,8 @@ class GerenciadorObjetos:
             entidade.draw(self.surface)
 
     def findEntidadeByName(self, nome):
+        if type(nome) != str:
+            str(nome)
         for entidade in self.entidadesCriadas:
             if entidade.nome == nome:
                 return entidade
