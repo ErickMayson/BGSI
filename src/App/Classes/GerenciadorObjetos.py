@@ -14,6 +14,7 @@ class GerenciadorObjetos:
             raise Exception("Já existe uma entidade com esse nome!")
 
     def draw(self):
+        self.surface.fill("black")
         for entidade in self.entidadesCriadas:
             entidade.draw(self.surface)
 

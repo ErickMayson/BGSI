@@ -1,15 +1,15 @@
 def scaleEntity(vertices = [[0,0]], scale = (1, 1)):
-    # Move Vertices to Origin
+    # Move os vertices para a origem
     center = getCenter(vertices)
     for i in range(len(vertices)):
         vertices[i] = [vertices[i][0] - center[0], vertices[i][1] - center[1]]
 
-    # Scale Vertices
+    # Escala os vertices
     for i in range(len(vertices)):
         vertices[i][0] *= scale[0]
         vertices[i][1] *= scale[1]
 
-    # Move Vertices back to original position
+    # Move os vertices de volta para a posição original
     for i in range(len(vertices)):
         vertices[i] = [vertices[i][0] + center[0], vertices[i][1] + center[1]]
     

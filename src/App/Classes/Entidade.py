@@ -34,23 +34,26 @@ class Retangulo(Entidade):
         
         #print("cordsMin: ", self.cordsMin, " tamanho: ", self.tamanho)
 
-        surf.fill("black")
         pygame.draw.rect(surf, self.corPreenchimento, (self.cordsMin, self.tamanho))
         pygame.display.flip()
 
 class Linha(Entidade):
     def __init__(self, cordsMin, cordsMax, nome, escala = (1, 1), rotacao = 0, translacao = (0, 0), corBorda = (0,0,0), corPreenchimento = (255, 255, 255) ):
-        print("Construtor da classe Linha");
+        #print("Construtor da classe Linha");
         super().__init__(nome, escala, rotacao, translacao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255))
         self.cordsMin = cordsMin
         self.cordsMax = cordsMax
     
     def draw(self, surf):
+        #print("Draw da classe Linha");
         self.cordsMax = list(map(add, self.cordsMax, self.translacao))
         self.cordsMin = list(map(add, self.cordsMin, self.translacao))
         
+        newCords = scaleEntity([self.cordsMin, self.cordsMax], self.escala)
+        self.cordsMin = newCords[0]
+        self.cordsMax = newCords[1]
+
         #print("cordsMin: ", self.cordsMin, " cordsMax: ", self.cordsMax)
 
-        surf.fill("black")
         pygame.draw.line(surf, self.corPreenchimento, self.cordsMin, self.cordsMax)
         pygame.display.flip()

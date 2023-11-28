@@ -67,7 +67,9 @@ class wCreateObject:
 
         if self.selectedType.get() == "Retangulo" or self.selectedType.get() == "Reta":
             # Define uma lista de strings que serão usadas como rótulos para os campos de entrada
-            input = ("Coordenada X Min", "Coordenada Y Min", "Coordenada X Max", "Coordenada Y Max")
+            input = ("Coordenada X Min", "Coordenada Y Min", "DeltaX", "DeltaY")
+            if self.selectedType.get() == "Reta":
+                input = ("Coordenada X Min", "Coordenada Y Min", "Coordenada X Max", "Coordenada Y Max")
             # Cria uma lista de variáveis IntVar, que serão usadas para armazenar os valores dos campos de entrada
             variables = [IntVar() for _ in range(4)]
 
@@ -106,15 +108,15 @@ class wCreateObject:
             y2Coord = int(parameters[3].get())
             
 
-            coordMin = (x1Coord, y1Coord)
-            coordMax = (x2Coord, y2Coord)
+            coordMin = [x1Coord, y1Coord]
+            coordMax = [x2Coord, y2Coord]
 
             # Cria objeto
 
             if objectType == "Retangulo":
-                objeto = Retangulo(coordMin, coordMax, objectName, 1, 1)
+                objeto = Retangulo(coordMin, coordMax, objectName)
             else:
-                objeto = Linha(coordMin, coordMax, objectName, 1, 1)
+                objeto = Linha(coordMin, coordMax, objectName)
 
             # Adiciona o objeto para a lista.
             try:

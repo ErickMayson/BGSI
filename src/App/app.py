@@ -4,7 +4,7 @@ import os
 import pygame
 from Classes.GerenciadorObjetos import GerenciadorObjetos
 from Classes.Entidade import Retangulo
-print(sys.path)
+#print(sys.path)
 
 
 def app():
