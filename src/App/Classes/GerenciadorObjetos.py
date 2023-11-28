@@ -1,5 +1,5 @@
 import pygame
-from .Entidade import Entidade, Retangulo, Linha
+from .Entidade import Entidade, Retangulo, Linha, Poligono, Circulo
 import json
 
 #Singleton?
@@ -71,6 +71,23 @@ class GerenciadorObjetos:
                          translacao=entidade_data['translacao'],
                          corBorda=entidade_data['corBorda'],
                          corPreenchimento=entidade_data['corPreenchimento'])
+        elif tipo == 'Poligono':
+            return Poligono(coords=entidade_data['coords'],
+                            nome=entidade_data['nome'],
+                            escala=entidade_data['escala'],
+                            rotacao=entidade_data['rotacao'],
+                            translacao=entidade_data['translacao'],
+                            corBorda=entidade_data['corBorda'],
+                            corPreenchimento=entidade_data['corPreenchimento'])
+        elif tipo == 'Circulo':
+            return Circulo(cordsCenter=entidade_data['cordsCenter'],
+                           radius=entidade_data['radius'],
+                           nome=entidade_data['nome'],
+                           escala=entidade_data['escala'],
+                           rotacao=entidade_data['rotacao'],
+                           translacao=entidade_data['translacao'],
+                           corBorda=entidade_data['corBorda'],
+                           corPreenchimento=entidade_data['corPreenchimento'])
         else:
-            # Handle other types if needed
+            print("Erro ao ler o displayFile")
             return None

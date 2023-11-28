@@ -3,7 +3,7 @@ import sys
 import os
 import pygame
 from Classes.GerenciadorObjetos import GerenciadorObjetos
-from Classes.Entidade import Retangulo
+from Classes.Entidade import Retangulo, Linha, Poligono, Circulo
 #print(sys.path)
 
 
@@ -18,9 +18,10 @@ if __name__ == "__main__":
     pygame.display.set_caption(pygameWindow['caption'])
 
     gerenciadorSINGLETON = GerenciadorObjetos(janelaPygame)
-    
-    gerenciadorSINGLETON.loadDisplayFile('displayFile.json')
-
+    try:
+        gerenciadorSINGLETON.loadDisplayFile('displayFile.json')
+    except Exception as e:
+        print(e)
     #retangulo1 = Retangulo([0, 0], [50, 50], 'retangulo1', (1, 1), 0, (0,0))
     #GerenciadorObjetos.addEntidade(gerenciadorSINGLETON, retangulo1)
     #retangulo2 = Retangulo((100, 110), (154, 300), 'retangulo2', 1, 1)

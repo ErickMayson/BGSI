@@ -36,7 +36,7 @@ class Retangulo(Entidade):
     def to_dict(self):
         base_dict = super().to_dict()
         base_dict.update({
-            'tipo': self.__class__.__name__,  # This line ensures the correct type is included
+            'tipo': self.__class__.__name__, 
             'cordsMin': self.cordsMin,
             'tamanho': self.tamanho
         })
@@ -89,6 +89,14 @@ class Poligono(Entidade):
     def __init__(self, coords, nome, escala = (1, 1), rotacao = 0, translacao = (0, 0), corBorda = (0,0,0), corPreenchimento = (255, 255, 255)):
         super().__init__(nome, escala, rotacao, translacao, corBorda, corPreenchimento)
         self.coords = coords
+        
+    def to_dict(self):
+        base_dict = super().to_dict()
+        base_dict.update({
+            'tipo': self.__class__.__name__,
+            'coords': self.coords
+        })
+        return base_dict
 
     def draw(self, surf):
         #print("Draw da classe Triangulo");
@@ -111,6 +119,15 @@ class Circulo(Entidade):
         super().__init__(nome, escala, rotacao, translacao, corBorda, corPreenchimento)
         self.cordsCenter = cordsCenter
         self.radius = radius
+        
+    def to_dict(self):
+        base_dict = super().to_dict()
+        base_dict.update({
+            'tipo': self.__class__.__name__,
+            'cordsCenter': self.cordsCenter,
+            'radius': self.radius
+        })
+        return base_dict
 
     def draw(self, surf):
         #print("Draw da classe Circle");
