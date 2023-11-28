@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 import sys
 import os
 
@@ -13,6 +14,8 @@ class wCreateObject:
         #Configurações Iniciais
         mainWindow = Toplevel(master)
         mainWindow.title("Adicionar Objeto")
+        mainWindow.columnconfigure(0, weight=1)
+        mainWindow.rowconfigure(0, weight=1)
         self.gerenciadorSINGLETON = gerenciador
 
         # Função que atualiza a TreeView da janela principal
@@ -23,8 +26,13 @@ class wCreateObject:
         mainframe = ttk.Frame(mainWindow, padding = "2 2 2 2")
         mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 
+        # Cria só uma linha horizontal
+        ttk.Separator(mainframe, orient=HORIZONTAL).grid(row=2, columnspan=2, sticky=(W, E))
+
         # Cria o frame dos parametros
         parametersFrame = ttk.Frame(mainWindow, padding = "2 2 2 2")
+        parametersFrame.columnconfigure(0, weight=1)
+        parametersFrame.rowconfigure(0, weight=1)
         parametersFrame.grid(column=0, row=1, sticky=(N, W, E, S))
         self.parametersFrame = parametersFrame
         
@@ -52,9 +60,17 @@ class wCreateObject:
         # Remove o frame de parametros, caso ele exista. Isso é feito para que o frame se adapte ao tipo de objeto selecionado
         self.parametersFrame.grid_forget()
 
+        # Tamanho da borda
+        ttk.Label(self.parametersFrame, text="Tamanho da borda").grid(column=0, row=0, sticky=(W, E))
+
+        for child in self.parametersFrame.winfo_children():
+           child.grid_forget()
+
         if self.selectedType.get() == "Retangulo" or self.selectedType.get() == "Reta":
             # Define uma lista de strings que serão usadas como rótulos para os campos de entrada
-            input = ("Coordenada X Min", "Coordenada Y Min", "Coordenada X Max", "Coordenada Y Max")
+            input = ("Coordenada X Min", "Coordenada Y Min", "DeltaX", "DeltaY")
+            if self.selectedType.get() == "Reta":
+                input = ("Coordenada X Min", "Coordenada Y Min", "Coordenada X Max", "Coordenada Y Max")
             # Cria uma lista de variáveis IntVar, que serão usadas para armazenar os valores dos campos de entrada
             variables = [IntVar() for _ in range(4)]
 
@@ -67,44 +83,126 @@ class wCreateObject:
                 ttk.Label(self.parametersFrame, text = input[i*2+1]).grid(column = 0, row =  i*2 + 1, sticky = (W, E))
                 ttk.Spinbox(self.parametersFrame, to = 100, width = 5, textvariable= variables[i*2+1]).grid(column = 1, row = i*2 + 1, sticky = (W, E))
             
+            
             # Cria um botão que, quando pressionado, chama a função 'submitParameters' com a lista 'variables' como argumento
-            ttk.Button(self.parametersFrame,text="Criar", command= lambda: self.submitParameters(variables)).grid(column=1, row=4)
+            ttk.Button(self.parametersFrame,text="Criar", command= lambda: self.submitParameters(variables)).grid(column=1, row=4, sticky=(S, E))
             # Exibe o frame
             self.parametersFrame.grid()
+
+        elif self.selectedType.get() == "Triangulo":
+            # Define uma lista de strings que serão usadas como rótulos para os campos de entrada
+            input = ("x1", "x1", "x2", "x2", "x3", "x3")
+            # Cria uma lista de variáveis IntVar, que serão usadas para armazenar os valores dos campos de entrada
+            
+            variables = [IntVar() for _ in range(6)]
+
+            for i in range(3):
+                ttk.Label(self.parametersFrame, text = input[i*2] + " " + input[i*2+1]).grid(column = 0, row = i, sticky = (W, E))
+                ttk.Spinbox(self.parametersFrame, to = 100, width = 5, textvariable= variables[i*2]).grid(column = 1, row =  i, sticky = (W, E))
+                ttk.Spinbox(self.parametersFrame, to = 100, width = 5, textvariable= variables[i*2+1]).grid(column = 2, row = i, sticky = (W, E))
+
+             # Cria um botão que, quando pressionado, chama a função 'submitParameters' com a lista 'variables' como argumento
+            ttk.Button(self.parametersFrame,text="Criar", command= lambda: self.submitParameters(variables)).grid(column=1, row=4, sticky=(S, E))
+            # Exibe o frame
+            self.parametersFrame.grid()
+
+        elif self.selectedType.get() == "Circulo":
+            input = ("Centro", "Raio")
+
+            variables = [IntVar() for _ in range(3)]
+
+            ttk.Label(self.parametersFrame, text = input[0]+"(X, Y)").grid(column = 0, row = 0, sticky = (W, E))
+            for i in range(2):
+                ttk.Spinbox(self.parametersFrame, to = 100, width = 5, textvariable= variables[i]).grid(column = i+1, row = 0, sticky = (W, E))
+            ttk.Label(self.parametersFrame, text = input[1]).grid(column = 0, row = 1, sticky = (W, E))
+            ttk.Spinbox(self.parametersFrame, to = 100, width = 5, textvariable= variables[2]).grid(column = 1, row = 1, sticky = (W, E))
+
+            ttk.Button(self.parametersFrame,text="Criar", command= lambda: self.submitParameters(variables)).grid(column=1, row=4, sticky=(S, E))
+            # Exibe o frame
+            self.parametersFrame.grid()
+
             
         else:
             print("Ainda não implementado")
 
     # Função que é chamada quando o botão 'Criar' é pressionado
     def submitParameters(self, parameters):
-        print("entrei")
+        #print("entrei")
         objectType = self.selectedType.get()
         objectName = self.nameEntry.get()
 
-        if objectType == "Retangulo" or objectType == "Reta":
-            print(parameters[0].get(), parameters[1].get())
+        if objectName == "":
+            messagebox.showwarning("Erro", "O objeto precisa ter um nome!")
+        
+        elif objectType == "Retangulo" or objectType == "Reta":
+            #print(parameters[0].get(), parameters[1].get())
             x1Coord = int(parameters[0].get())
             y1Coord = int(parameters[1].get())
             x2Coord = int(parameters[2].get())
             y2Coord = int(parameters[3].get())
             
 
-            coordMin = (x1Coord, y1Coord)
-            coordMax = (x2Coord, y2Coord)
+            coordMin = [x1Coord, y1Coord]
+            coordMax = [x2Coord, y2Coord]
 
             # Cria objeto
 
             if objectType == "Retangulo":
-                objeto = Retangulo(coordMin, coordMax, objectName, 1, 1)
+                objeto = Retangulo(coordMin, coordMax, objectName)
             else:
-                objeto = Linha(coordMin, coordMax, objectName, 1, 1)
+                objeto = Linha(coordMin, coordMax, objectName)
 
             # Adiciona o objeto para a lista.
-            self.gerenciadorSINGLETON.addEntidade(objeto)
-            self.gerenciadorSINGLETON.draw()
-            # Atualiza a TreeView da janela principal
-            self.atualizarTreeView(objeto)
-            #self.update_object_listbox()
+            try:
+                self.gerenciadorSINGLETON.addEntidade(objeto)
+                self.gerenciadorSINGLETON.draw()
+                # Atualiza a TreeView da janela principal
+                self.atualizarTreeView(objeto)
+                
+            except Exception as e:
+                messagebox.showwarning("Erro", "Erro ao criar um retângulo ou uma reta" + e)
+
+        elif objectType == "Triangulo":
+            x1Coord = int(parameters[0].get())
+            y1Coord = int(parameters[1].get())
+            x2Coord = int(parameters[2].get())
+            y2Coord = int(parameters[3].get())
+            x3Coord = int(parameters[4].get())
+            y3Coord = int(parameters[5].get())
+
+            coord1 = [x1Coord, y1Coord]
+            coord2 = [x2Coord, y2Coord]
+            coord3 = [x3Coord, y3Coord]
+
+            objeto = Poligono([coord1, coord2, coord3], objectName)
+
+            # Adiciona o objeto para a lista.
+            try:
+                self.gerenciadorSINGLETON.addEntidade(objeto)
+                self.gerenciadorSINGLETON.draw()
+                # Atualiza a TreeView da janela principal
+                self.atualizarTreeView(objeto)
+                
+            except Exception as e:
+                messagebox.showwarning("Erro ao criar um triângulo" , e)
+
+        elif objectType == "Circulo":
+            xCoord = int(parameters[0].get())
+            yCoord = int(parameters[1].get())
+            raio = int(parameters[2].get())
+
+            objeto = Circulo([xCoord, yCoord], raio, objectName)
+
+            # Adiciona o objeto para a lista.
+            try:
+                self.gerenciadorSINGLETON.addEntidade(objeto)
+                self.gerenciadorSINGLETON.draw()
+                print("desenhou")
+                # Atualiza a TreeView da janela principal
+                self.atualizarTreeView(objeto)
+                
+            except Exception as e:
+                messagebox.showwarning("Erro ao criar um círculo" , e)
 
 
 # Não esqueça de comentar a linha de baixo, descomente para testar a janela de forma mais rápida
