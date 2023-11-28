@@ -13,6 +13,17 @@ class Entidade:
         self.escala = escala
         self.translacao = translacao
         self.rotacao = rotacao
+        
+    def to_dict(self):
+        return {
+            'tipo': 'Entidade',
+            'nome': self.nome,
+            'escala': self.escala,
+            'rotacao': self.rotacao,
+            'translacao': self.translacao,
+            'corBorda': self.corBorda,
+            'corPreenchimento': self.corPreenchimento
+    }
 
         
 
@@ -21,7 +32,15 @@ class Retangulo(Entidade):
         super().__init__(nome, escala, rotacao, translacao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255))
         self.cordsMin = cordsMin
         self.tamanho = tamanho
-
+        
+    def to_dict(self):
+        base_dict = super().to_dict()
+        base_dict.update({
+            'tipo': self.__class__.__name__,  # This line ensures the correct type is included
+            'cordsMin': self.cordsMin,
+            'tamanho': self.tamanho
+        })
+        return base_dict
     
     def draw(self, surf):
         #Cords max é na verdade o tamanho do retângulo.
@@ -43,6 +62,14 @@ class Linha(Entidade):
         super().__init__(nome, escala, rotacao, translacao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255))
         self.cordsMin = cordsMin
         self.cordsMax = cordsMax
+        
+    def to_dict(self):
+        return {
+            'tipo': 'Linha',
+            'cordsMin': self.cordsMin,
+            'cordsMax': self.cordsMax,
+            **super().to_dict()
+        }
     
     def draw(self, surf):
         #print("Draw da classe Linha");

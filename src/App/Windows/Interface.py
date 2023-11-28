@@ -9,6 +9,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 from App.Classes.Entidade import *
 from .wCreateObject import wCreateObject
 from .wTransformations import wTransformations
+from Classes.GerenciadorObjetos import GerenciadorObjetos
+
 
 #print(sys.path)
 #Mantenha o nome das variáveis em inglês.
@@ -63,6 +65,10 @@ class Interface:
         #Botao para janela de transformacao
         self.createObjectButton = tk.Button(master, text="Transformação", command=self.openTransformations, bg=self.fontColor, font=self.normalFont, width=10, height=1, bd=4, relief=tk.RAISED, padx=10, pady=5)
         self.createObjectButton.grid(row=2, column=2, pady=5, padx=5)
+        
+        #Botao para janela de transformacao
+        self.createObjectButton = tk.Button(master, text="Salvar", command=lambda: self.gerenciadorSINGLETON.saveDisplayFile(), bg=self.fontColor, font=self.normalFont, width=10, height=1, bd=4, relief=tk.RAISED, padx=10, pady=5)
+        self.createObjectButton.grid(row=3, column=1, columnspan=2, pady=5, padx=5)
         
     
     def updateEntityList(self, entity):

@@ -1,0 +1,70 @@
+{
+  "entidadesCriadas": [
+    {
+      "tipo": "Retangulo",
+      "nome": "retangulo1",
+      "escala": [
+        1,
+        1
+      ],
+      "rotacao": 0,
+      "translacao": [
+        0,
+        0
+      ],
+      "corBorda": [
+        0,
+        0,
+        0
+      ],
+      "corPreenchimento": [
+        255,
+        255,
+        255
+      ],
+      "cordsMin": [
+        0.0,
+        0.0
+      ],
+      "tamanho": [
+        50,
+        50
+      ]
+    },
+    {
+      "tipo": "Retangulo",
+      "nome": "Retaaas",
+      "escala": [
+        1,
+        1
+      ],
+      "rotacao": 0,
+      "translacao": [
+        0,
+        0
+      ],
+      "corBorda": [
+        0,
+        0,
+        0
+      ],
+      "corPreenchimento": [
+        255,
+        255,
+        255
+      ],
+      "cordsMin": [
+        52.0,
+        75.0
+      ],
+      "tamanho": [
+        55,
+        55
+      ]
+    }
+  ],
+  "surface_size": [
+    800,
+    800
+  ]
+}

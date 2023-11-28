@@ -18,11 +18,14 @@ if __name__ == "__main__":
     pygame.display.set_caption(pygameWindow['caption'])
 
     gerenciadorSINGLETON = GerenciadorObjetos(janelaPygame)
+    
+    gerenciadorSINGLETON.loadDisplayFile('displayFile.json')
 
-    retangulo1 = Retangulo([0, 0], [50, 50], 'retangulo1', (1, 1), 0, (0,0))
-    GerenciadorObjetos.addEntidade(gerenciadorSINGLETON, retangulo1)
+    #retangulo1 = Retangulo([0, 0], [50, 50], 'retangulo1', (1, 1), 0, (0,0))
+    #GerenciadorObjetos.addEntidade(gerenciadorSINGLETON, retangulo1)
     #retangulo2 = Retangulo((100, 110), (154, 300), 'retangulo2', 1, 1)
-    #gerenciadorSINGLETON.addEntidade(retangulo2)
+    #sgerenciadorSINGLETON.addEntidade(retangulo2)
+    
 
     gerenciadorSINGLETON.draw()
 
