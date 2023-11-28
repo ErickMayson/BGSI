@@ -6,7 +6,7 @@ from .utils import *
 #sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
 class Entidade:
-    def __init__(self, nome, escala, rotacao, translacao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255)):
+    def __init__(self, nome, escala = (1, 1), rotacao = 0, translacao = (0, 0), corBorda = (0,0,0), corPreenchimento = (255, 255, 255)):
         self.corBorda = corBorda
         self.corPreenchimento = corPreenchimento
         self.nome = nome
@@ -56,4 +56,39 @@ class Linha(Entidade):
         #print("cordsMin: ", self.cordsMin, " cordsMax: ", self.cordsMax)
 
         pygame.draw.line(surf, self.corPreenchimento, self.cordsMin, self.cordsMax)
+        pygame.display.flip()
+
+class Poligono(Entidade):
+    def __init__(self, coords, nome, escala = (1, 1), rotacao = 0, translacao = (0, 0), corBorda = (0,0,0), corPreenchimento = (255, 255, 255)):
+        super().__init__(nome, escala, rotacao, translacao, corBorda, corPreenchimento)
+        self.coords = coords
+
+    def draw(self, surf):
+        #print("Draw da classe Triangulo");
+        #for coord in self.coords:
+        #    coord = list(map(add, coord, self.translacao))
+
+        for i in range(len(self.coords)):
+            self.coords[i] = list(map(add, self.coords[i], self.translacao))
+        
+        newCords = scaleEntity(self.coords, self.escala)
+        for i in range(len(self.coords)):
+            self.coords[i] = newCords[i]
+
+
+        pygame.draw.polygon(surf, self.corPreenchimento, self.coords)
+        pygame.display.flip()
+
+class Circulo(Entidade):
+    def __init__(self, cordsCenter, radius, nome, escala = (1, 1), rotacao = 0, translacao = (0, 0), corBorda = (0,0,0), corPreenchimento = (255, 255, 255)):
+        super().__init__(nome, escala, rotacao, translacao, corBorda, corPreenchimento)
+        self.cordsCenter = cordsCenter
+        self.radius = radius
+
+    def draw(self, surf):
+        #print("Draw da classe Circle");
+        self.cordsCenter = list(map(add, self.cordsCenter, self.translacao))
+        
+
+        pygame.draw.circle(surf, self.corPreenchimento, self.cordsCenter, self.radius*self.escala[0])
         pygame.display.flip()

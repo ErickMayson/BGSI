@@ -86,7 +86,7 @@ class wTransformations:
 
 
     def applyColor(self):
-        entidade = self.gerenciadorSINGLETON.findEntidadeByName(self.entityName)
+        entidade = self.gerenciadorSINGLETON.findEntidadeByName(str(self.entityName))
         #print(self.color)
         #A  cor é uma tupla, o primeiro elemento é o valor em RGB, o segundo é o valor em hexadecimal   
         if entidade is not None:
@@ -94,7 +94,7 @@ class wTransformations:
             self.gerenciadorSINGLETON.draw()
             
         else:
-            messagebox.showerror("Erro", "Isso não devia acontecer, a entidade " + self.entityName + " não foi encontrada.")
+            messagebox.showerror("Erro", "Isso não devia acontecer, a entidade ", self.entityName ," não foi encontrada.")
 
     def chooseColor(self, colorSquare):
         self.color = colorchooser.askcolor()
@@ -106,7 +106,8 @@ class wTransformations:
         
         translationInput = (int(translationX), int(translationY))
 
-        entidade = self.gerenciadorSINGLETON.findEntidadeByName(self.entityName)
+        entidade = self.gerenciadorSINGLETON.findEntidadeByName(str(self.entityName))
+        print("Nome da entidade: ", entidade.nome)
         if entidade is not None:
             entidade.translacao = translationInput
             #print(entidade.translacao)
@@ -121,7 +122,7 @@ class wTransformations:
         scalingFactorY = float(self.scalingInputY.get())
         
 
-        entidade = self.gerenciadorSINGLETON.findEntidadeByName(self.entityName)
+        entidade = self.gerenciadorSINGLETON.findEntidadeByName(str(self.entityName))
         if entidade is not None:
             entidade.escala = (scalingFactorX, scalingFactorY)
             #print(entidade.escala)
@@ -131,7 +132,7 @@ class wTransformations:
             entidade.escala = (1, 1)
             
         else:
-            messagebox.showerror("Erro", "Isso não devia acontecer, a entidade " + self.entityName + " não foi encontrada.")
+            messagebox.showerror("Erro", "Isso não devia acontecer, a entidade ", self.entityName," não foi encontrada.")
             
     def rotateObject(self):
         return print("Placeholder for Rotate function")

@@ -1,3 +1,5 @@
+import math
+
 def scaleEntity(vertices = [[0,0]], scale = (1, 1)):
     # Move os vertices para a origem
     center = getCenter(vertices)
@@ -26,6 +28,26 @@ def scaleEntityRet(tamanhoQuadrado = [0, 0], verticesMin = [0,0], scale = (1,1))
     tamanhoQuadrado[1] *= scale[1]
 
     return vertices[0], tamanhoQuadrado 
+
+#Função para rotacionar um objeto
+def rotateEntity(vertices = [[0,0]], angle = 0):
+    # Move os vertices para a origem
+    center = getCenter(vertices)
+    for i in range(len(vertices)):
+        vertices[i] = [vertices[i][0] - center[0], vertices[i][1] - center[1]]
+
+    # Rotaciona os vertices
+    for i in range(len(vertices)):
+        x = vertices[i][0]
+        y = vertices[i][1]
+        vertices[i][0] = x * math.cos(angle) - y * math.sin(angle)
+        vertices[i][1] = x * math.sin(angle) + y * math.cos(angle)
+
+    # Move os vertices de volta para a posição original
+    for i in range(len(vertices)):
+        vertices[i] = [vertices[i][0] + center[0], vertices[i][1] + center[1]]
+    
+    return vertices
 
     
 def getCenter(vertices = [[0,0]]):
