@@ -70,8 +70,14 @@ class wTransformations:
         scalingLabel = ttk.Label(scalingFrame, text="X")
         scalingLabel.grid(row=0, column=0, pady=5, padx=5)
         
-        self.scalingInput = ttk.Entry(scalingFrame)
-        self.scalingInput.grid(row=0, column=1, pady=5, padx=5)
+        self.scalingInputX = ttk.Entry(scalingFrame)
+        self.scalingInputX.grid(row=0, column=1, pady=5, padx=5)
+        
+        scalingLabel = ttk.Label(scalingFrame, text="Y")
+        scalingLabel.grid(row=1, column=0, pady=5, padx=5)
+
+        self.scalingInputY = ttk.Entry(scalingFrame)
+        self.scalingInputY.grid(row=1, column=1, pady=5, padx=5)
         
         ttk.Button(scalingFrame, text="Escalonar objeto", command=self.scaleObject).grid(row=3, column=1, pady=10, padx=10, sticky=(S, W),)
         mainWindow.focus_set()
@@ -111,15 +117,18 @@ class wTransformations:
             
             
     def scaleObject(self):
-        self.scalingFactor = self.scalingInput.get()
-        self.scalingFactor = int(self.scalingFactor)
+        scalingFactorX = float(self.scalingInputX.get())
+        scalingFactorY = float(self.scalingInputY.get())
+        
 
         entidade = self.gerenciadorSINGLETON.findEntidadeByName(self.entityName)
         if entidade is not None:
-            entidade.escala = self.scalingFactor
-            print(entidade.escala)
+            entidade.escala = (scalingFactorX, scalingFactorY)
+            #print(entidade.escala)
             # Not redrawing?
             self.gerenciadorSINGLETON.draw()
+            # Reseta a escala do objeto para 1, para não continuar escalando.
+            entidade.escala = (1, 1)
             
         else:
             messagebox.showerror("Erro", "Isso não devia acontecer, a entidade " + self.entityName + " não foi encontrada.")
