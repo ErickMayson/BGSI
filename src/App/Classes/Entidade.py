@@ -2,9 +2,7 @@ import pygame
 from operator import add
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
-
-from App.app import *
+#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
 class Entidade:
     def __init__(self, nome, escala, rotacao, translacao, corBorda = (0,0,0), corPreenchimento = (255, 255, 255)):
@@ -29,7 +27,7 @@ class Retangulo(Entidade):
         self.cordsMax = list(map(add, self.cordsMax, self.translacao))
         self.cordsMin = list(map(add, self.cordsMin, self.translacao))
         
-        janelaPygame.fill("black")
+        surf.fill("black")
         pygame.draw.rect(surf, self.corPreenchimento, (self.cordsMin, self.cordsMax))
         pygame.display.flip()
 
@@ -44,6 +42,6 @@ class Linha(Entidade):
         self.cordsMax = list(map(add, self.cordsMax, self.translacao))
         self.cordsMin = list(map(add, self.cordsMin, self.translacao))
         
-        janelaPygame.fill("black")
+        surf.fill("black")
         pygame.draw.line(surf, self.corPreenchimento, self.cordsMin, self.cordsMax)
         pygame.display.flip()

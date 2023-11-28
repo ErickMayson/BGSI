@@ -98,14 +98,17 @@ class wTransformations:
         translationX = self.xEntry.get()
         translationY = self.yEntry.get()
         
-        self.translationInput = (int(translationX), int(translationY))
+        translationInput = (int(translationX), int(translationY))
 
         entidade = self.gerenciadorSINGLETON.findEntidadeByName(self.entityName)
         if entidade is not None:
-            entidade.translacao = self.translationInput
+            entidade.translacao = translationInput
             print(entidade.translacao)
             # Not redrawing?
             self.gerenciadorSINGLETON.draw()
+            # Reseta a translação do objeto para 0, para não continuar somando.
+            entidade.translacao = (0,0)
+            
             
     def scaleObject(self):
         self.scalingFactor = self.scalingInput.get()

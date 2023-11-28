@@ -5,9 +5,7 @@ import pygame
 from Classes.GerenciadorObjetos import GerenciadorObjetos
 from Classes.Entidade import Retangulo
 print(sys.path)
-pygameWindow = {'size': (800, 400), 'backgroundColor': (255, 255, 255), 'caption': 'Janela PyGame'}
-janelaPygame = pygame.display.set_mode(pygameWindow['size'])
-pygame.display.set_caption(pygameWindow['caption'])
+
 
 def app():
     script_path = os.path.join(os.path.dirname(__file__), "Windows/Interface.py")
@@ -15,9 +13,9 @@ def app():
 
 if __name__ == "__main__":
 
-    #pygameWindow = {'size': (800, 400), 'backgroundColor': (255, 255, 255), 'caption': 'Janela PyGame'}
-    #janelaPygame = pygame.display.set_mode(pygameWindow['size'])
-    #pygame.display.set_caption(pygameWindow['caption'])
+    pygameWindow = {'size': (800, 800), 'backgroundColor': (255, 255, 255), 'caption': 'Janela PyGame'}
+    janelaPygame = pygame.display.set_mode(pygameWindow['size'])
+    pygame.display.set_caption(pygameWindow['caption'])
 
     gerenciadorSINGLETON = GerenciadorObjetos(janelaPygame)
 
