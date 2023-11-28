@@ -4,6 +4,7 @@ from tkinter import colorchooser
 from tkinter import messagebox
 import sys
 import os
+import math
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
@@ -81,6 +82,22 @@ class wTransformations:
         
         ttk.Button(scalingFrame, text="Escalonar objeto", command=self.scaleObject).grid(row=3, column=1, pady=10, padx=10, sticky=(S, W),)
         mainWindow.focus_set()
+        
+        # Frame de rotacao, nao implementado
+        #rotatingFrame = ttk.Frame(notebook, padding = "2 2 2 2")
+        #rotatingFrame.grid(column=0, row=0, sticky=(N, W, E, S))
+#
+        #notebook.add(rotatingFrame, text='Rotação')
+        #
+        #scalingLabel = ttk.Label(rotatingFrame, text="X")
+        #scalingLabel.grid(row=0, column=0, pady=5, padx=5)
+        #
+        #self.angulo = ttk.Entry(rotatingFrame)
+        #self.angulo.grid(row=0, column=1, pady=5, padx=5)
+        #
+        #
+        #ttk.Button(rotatingFrame, text="Rotacionar objeto", command=self.rotateObject).grid(row=3, column=1, pady=10, padx=10, sticky=(S, W),)
+        #mainWindow.focus_set()
 
         mainWindow.mainloop()
 
@@ -135,6 +152,19 @@ class wTransformations:
             messagebox.showerror("Erro", "Isso não devia acontecer, a entidade ", self.entityName," não foi encontrada.")
             
     def rotateObject(self):
-        return print("Placeholder for Rotate function")
+        rotacao = float(self.angulo.get())
+        
+
+        entidade = self.gerenciadorSINGLETON.findEntidadeByName(str(self.entityName))
+        if entidade is not None:
+            entidade.rotacao = math.radians(rotacao)
+            print(entidade.escala)
+            # Not redrawing?
+            self.gerenciadorSINGLETON.draw()
+            # Reseta a escala do objeto para 1, para não continuar escalando.
+            #entidade.rotacao = (1, 1)
+            
+        else:
+            messagebox.showerror("Erro", "Isso não devia acontecer, a entidade ", self.entityName," não foi encontrada.")
         
 #wTransformations(Tk())
