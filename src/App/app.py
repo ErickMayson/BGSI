@@ -4,8 +4,6 @@ import os
 import pygame
 from Classes.GerenciadorObjetos import GerenciadorObjetos
 from Classes.Entidade import Retangulo, Linha, Poligono, Circulo
-#print(sys.path)
-
 
 def app():
     script_path = os.path.join(os.path.dirname(__file__), "Windows/Interface.py")
@@ -21,19 +19,12 @@ if __name__ == "__main__":
     try:
         gerenciadorSINGLETON.loadDisplayFile('displayFile.json')
     except Exception as e:
+    #Nao precisava do pass aqui, viajei
         print(e)
-    #retangulo1 = Retangulo([0, 0], [50, 50], 'retangulo1', (1, 1), 0, (0,0))
-    #GerenciadorObjetos.addEntidade(gerenciadorSINGLETON, retangulo1)
-    #retangulo2 = Retangulo((100, 110), (154, 300), 'retangulo2', 1, 1)
-    #sgerenciadorSINGLETON.addEntidade(retangulo2)
     
 
     gerenciadorSINGLETON.draw()
 
     from Windows.Interface import main
-    #print(sys.path)
     main(gerenciadorSINGLETON)
     
-    
-    
-    #app()
