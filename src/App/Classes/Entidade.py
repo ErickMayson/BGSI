@@ -23,10 +23,12 @@ class Retangulo(Entidade):
 
     
     def draw(self, surf):
-        
-        self.cordsMax = list(map(add, self.cordsMax, self.translacao))
+        #Cords max é na verdade o tamanho do retângulo.
+        #self.cordsMax = list(map(add, self.cordsMax, self.translacao))
         self.cordsMin = list(map(add, self.cordsMin, self.translacao))
         
+        #print("cordsMin: ", self.cordsMin, " cordsMax: ", self.cordsMax)
+
         surf.fill("black")
         pygame.draw.rect(surf, self.corPreenchimento, (self.cordsMin, self.cordsMax))
         pygame.display.flip()
@@ -42,6 +44,8 @@ class Linha(Entidade):
         self.cordsMax = list(map(add, self.cordsMax, self.translacao))
         self.cordsMin = list(map(add, self.cordsMin, self.translacao))
         
+        #print("cordsMin: ", self.cordsMin, " cordsMax: ", self.cordsMax)
+
         surf.fill("black")
         pygame.draw.line(surf, self.corPreenchimento, self.cordsMin, self.cordsMax)
         pygame.display.flip()

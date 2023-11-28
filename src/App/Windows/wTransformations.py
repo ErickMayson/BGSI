@@ -48,9 +48,9 @@ class wTransformations:
 
         notebook.add(translationFrame, text='Translação')
         
-        inputLabelX = ttk.Label(translationFrame, text="X")
+        inputLabelX = ttk.Label(translationFrame, text="Delta X")
         inputLabelX.grid(row=0, column=0, pady=5, padx=5)
-        inputLabelY = ttk.Label(translationFrame, text="Y")
+        inputLabelY = ttk.Label(translationFrame, text="Delta Y")
         inputLabelY.grid(row=1, column=0, pady=5, padx=5)
 
         self.xEntry = ttk.Entry(translationFrame)
@@ -81,7 +81,7 @@ class wTransformations:
 
     def applyColor(self):
         entidade = self.gerenciadorSINGLETON.findEntidadeByName(self.entityName)
-        print(self.color)
+        #print(self.color)
         #A  cor é uma tupla, o primeiro elemento é o valor em RGB, o segundo é o valor em hexadecimal   
         if entidade is not None:
             entidade.corPreenchimento = self.color[0]
@@ -103,7 +103,7 @@ class wTransformations:
         entidade = self.gerenciadorSINGLETON.findEntidadeByName(self.entityName)
         if entidade is not None:
             entidade.translacao = translationInput
-            print(entidade.translacao)
+            #print(entidade.translacao)
             # Not redrawing?
             self.gerenciadorSINGLETON.draw()
             # Reseta a translação do objeto para 0, para não continuar somando.
